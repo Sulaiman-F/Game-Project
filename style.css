@@ -8,3 +8,15 @@ canvas{
 max-height: 95vh;
 min-width:  100%;
 }
+#controlsInfo {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(251, 251, 251, 0.8);
+    color: black;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+  }

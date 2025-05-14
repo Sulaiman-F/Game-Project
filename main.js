@@ -200,7 +200,7 @@ function generateRandomLevel() {
 }
 
 function loadLevel(levelNumber) {
-  if (levelNumber > 10) {
+  if (levelNumber > 3) {
     endGame("🎉 فزت بجميع المراحل!");
     return;
   }
