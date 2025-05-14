@@ -43,24 +43,23 @@ class Player {
 class Platform {
   constructor() {
     this.position = {
-      x: 200,
-      y: 200,
+      x: 100,
+      y: 100,
     };
 
-    this.width = 200;
+    this.width = 300;
     this.height = 20;
   }
 
   draw() {
-    c.fillStyle = 'blue';
+    c.fillStyle = "blue";
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
 
 //create object from class
 const player = new Player();
-const platform = new Platform()
-
+const platform = new Platform();
 
 //for move right and left
 const keys = {
@@ -75,16 +74,26 @@ player.update();
 
 function animated() {
   requestAnimationFrame(animated);
-   
+
   c.clearRect(0, 0, canvas.width, canvas.height);
-  platform.draw()
+  platform.draw();
   player.update();
+
+  //التحكم بسرعة وتوقف الازرار
   if (keys.right.press) {
     player.velocity.x = 5;
   } else if (keys.left.press) {
     player.velocity.x = -5;
   } else {
     player.velocity.x = 0;
+  }
+
+  if (
+    player.position.y + player.height <= platform.position.y &&
+    player.position.y + player.height + player.velocity.y >= platform.position.y
+    && player.width + player.position.x >= platform.position.x &&  player.position.x <= platform.position.x + platform.width
+  ) {
+    player.velocity.y = 0;
   }
 }
 
