@@ -41,10 +41,10 @@ class Player {
 
 //the env of game
 class Platform {
-  constructor() {
+  constructor({ x, y }) {
     this.position = {
-      x: 100,
-      y: 100,
+      x: x,
+      y: y,
     };
 
     this.width = 300;
@@ -59,7 +59,20 @@ class Platform {
 
 //create object from class
 const player = new Player();
-const platform = new Platform();
+
+
+//قمنا بجعل الكلاس داخل مصفوفة لكي نستخدمه اكثر مره 
+//البلاتفورم هو بئية اللعبة الحواجز الذي يقف عليها اللاعب
+const platforms = [
+  new Platform({
+    x: 200,
+    y: 300,
+  }),
+  new Platform({
+    x: 300,
+    y: 600,
+  }),
+];
 
 //for move right and left
 const keys = {
@@ -72,29 +85,47 @@ const keys = {
 };
 player.update();
 
+let scrollOffset = 0
 function animated() {
   requestAnimationFrame(animated);
 
   c.clearRect(0, 0, canvas.width, canvas.height);
-  platform.draw();
+  platforms.forEach((platform) => {
+    platform.draw();
+  });
+
   player.update();
 
-  //التحكم بسرعة وتوقف الازرار
-  if (keys.right.press) {
+  //التحكم بسرعة وتوقف الازرار والبيئة الخاصة باللعبة عند التحرك تختفي رتظهر علي حسب اتجاه اللاعب
+  if (keys.right.press && player.position.x < 400) {
     player.velocity.x = 5;
-  } else if (keys.left.press) {
+  } else if (keys.left.press && player.position.x > 100) {
     player.velocity.x = -5;
   } else {
     player.velocity.x = 0;
+
+    if (keys.right.press) {
+      platforms.forEach((platform) => {
+        platform.position.x -= 5;
+      });
+    } else if (keys.left.press) {
+      platforms.forEach((platform) => {
+        platform.position.x += 5;
+      });
+    }
   }
 
-  if (
-    player.position.y + player.height <= platform.position.y &&
-    player.position.y + player.height + player.velocity.y >= platform.position.y
-    && player.width + player.position.x >= platform.position.x &&  player.position.x <= platform.position.x + platform.width
-  ) {
-    player.velocity.y = 0;
-  }
+  platforms.forEach((platform) => {
+    if (
+      player.position.y + player.height <= platform.position.y &&
+      player.position.y + player.height + player.velocity.y >=
+        platform.position.y &&
+      player.width + player.position.x >= platform.position.x &&
+      player.position.x <= platform.position.x + platform.width
+    ) {
+      player.velocity.y = 0;
+    }
+  });
 }
 
 animated();
