@@ -1,0 +1,5 @@
+.jumping {
+    position: relative;
+    display: inline-block;
+    animation: jump 0.5s ease-in-out infinite;
+}
