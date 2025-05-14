@@ -4,12 +4,9 @@ let score = 0;
 
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(20, 20, "black", 10, 570);
-
-    // Start obstacle movement
+    myGamePiece = new component(40, 60, "mario", 10, 530); // Use "mario" as color
     requestAnimationFrame(updateGame);
 
-    // Listen for arrow keys to move or jump the piece
     document.addEventListener('keydown', function (e) {
         if (e.key === "ArrowRight") {
             myGamePiece.x += 10;
@@ -18,7 +15,6 @@ function startGame() {
             myGamePiece.x -= 10;
         }
         if (e.key === "ArrowUp") {
-            // Simple jump: move up, then fall back down after a short delay
             let originalY = myGamePiece.y;
             myGamePiece.y -= 150;
             myGameArea.context.clearRect(0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
@@ -69,10 +65,16 @@ function component(width, height, color, x, y) {
     this.x = x;
     this.y = y;
     this.isPipe = color === "pipe";
+    this.isMario = color === "mario";
     this.update = function () {
         let ctx = myGameArea.context;
         if (this.isPipe) {
             let img = document.getElementById("pipe-img");
+            if (img) {
+                ctx.drawImage(img, this.x, this.y, this.width, this.height);
+            }
+        } else if (this.isMario) {
+            let img = document.getElementById("mario-img");
             if (img) {
                 ctx.drawImage(img, this.x, this.y, this.width, this.height);
             }
