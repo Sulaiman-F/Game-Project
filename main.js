@@ -68,12 +68,18 @@ function component(width, height, color, x, y) {
     this.height = height;
     this.x = x;
     this.y = y;
+    this.isPipe = color === "pipe";
     this.update = function () {
         let ctx = myGameArea.context;
-        let displayImage = document.createElement("img");
-        displayImage.src = color;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        if (this.isPipe) {
+            let img = document.getElementById("pipe-img");
+            if (img) {
+                ctx.drawImage(img, this.x, this.y, this.width, this.height);
+            }
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
     }
     this.crashWith = function (other) {
         return !(
@@ -96,7 +102,7 @@ function updateGame() {
     if (frameCount % 120 === 0) {
         let height = Math.floor(Math.random() * 100) + 50;
         let y = myGameArea.canvas.height - height;
-        obstacles.push(new component(40, height, "green", myGameArea.canvas.width, y));
+        obstacles.push(new component(40, height, "pipe", myGameArea.canvas.width, y));
     }
 
     // Move obstacles to the left
