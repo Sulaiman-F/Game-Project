@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    crossorigin="anonymous"
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    .containerDiv {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .imgContainer {
+      width: 50%;
+      background-color: rgb(117, 24, 8);
+      animation: slideInLeft 1s ease-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .formContainer {
+      width: 50%;
+      animation: slideInRight 1s ease-out;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .containerDiv {
+        flex-direction: column-reverse;
+      }
+
+      .imgContainer, .formContainer {
+        width: 100%;
+      }
+
+      .img {
+        width: 100%;
+        max-height: 250px;
+        object-fit: contain;
+      }
+
+      .formContainer {
+        padding: 2rem 1rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+
+      button {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="containerDiv">
+    <!-- login form -->
+    <div class="formContainer shadow p-5 m-3 rounded-4 bg-white">
+      <h2>Login</h2>
+      <div class="mb-3">
+        <label for="loginUsername" class="form-label">Username</label>
+        <input type="text" class="form-control" id="loginUsername" placeholder="" />
+      </div>
+      <div class="mb-3">
+        <label for="loginPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="loginPassword" placeholder="" />
+        <div id="loginError" class="text-danger small mt-1"></div>
+      </div>
+      <h6>
+        Don't have an account?
+        <a href="signup.html" target="_blank" rel="noopener noreferrer">Create account</a>
+      </h6>
+      <button
+        class="btn w-100 fs-5 mt-3"
+        style="background-color: rgb(117, 24, 8); color: aliceblue"
+        onclick="loginValidation()"
+      >
+        Login
+      </button>
+    </div>
+     <!-- image  -->
+    <div class="imgContainer">
+      <img class="img" src="Screenshot 2025-05-14 171436.png" alt="Login Image" />
+    </div>
+  </div>
+
+  <script>
+    function loginValidation() {
+      const inputUsername = document.getElementById("loginUsername").value.trim();
+      const inputPassword = document.getElementById("loginPassword").value.trim();
+
+      const storedUsername = localStorage.getItem("username");
+      const storedPassword = localStorage.getItem("password");
+
+      const errorBox = document.getElementById("loginError");
+      errorBox.innerText = "";
+
+      if (inputUsername === storedUsername && inputPassword === storedPassword) {
+        window.location.href = "game.html";
+      } else {
+        errorBox.innerText = "Invalid username or password.";
+      }
+    }
+  </script>
+</body>
+</html>
