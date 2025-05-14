@@ -1,5 +1,18 @@
-.jumping {
-    position: relative;
-    display: inline-block;
-    animation: jump 0.5s ease-in-out infinite;
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    background-image: url("./images/back.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+canvas {
+    border: none;
+    background: none;
+
 }

@@ -4,7 +4,7 @@ let score = 0;
 
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(20, 20, "black", 10, 650);
+    myGamePiece = new component(20, 20, "black", 10, 570);
 
     // Start obstacle movement
     requestAnimationFrame(updateGame);
@@ -49,8 +49,8 @@ function startGame() {
 let myGameArea = {
     canvas: document.createElement("canvas"),
     start: function () {
-        this.canvas.width = 1150;
-        this.canvas.height = 670;
+        this.canvas.width = 1430;
+        this.canvas.height = 590;
         this.canvas.style.position = "absolute";
         this.canvas.style.zIndex = 1;
         this.canvas.style.border = "1px solid #000";
@@ -70,6 +70,8 @@ function component(width, height, color, x, y) {
     this.y = y;
     this.update = function () {
         let ctx = myGameArea.context;
+        let displayImage = document.createElement("img");
+        displayImage.src = color;
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
@@ -94,7 +96,7 @@ function updateGame() {
     if (frameCount % 120 === 0) {
         let height = Math.floor(Math.random() * 100) + 50;
         let y = myGameArea.canvas.height - height;
-        obstacles.push(new component(30, height, "green", myGameArea.canvas.width, y));
+        obstacles.push(new component(40, height, "green", myGameArea.canvas.width, y));
     }
 
     // Move obstacles to the left
