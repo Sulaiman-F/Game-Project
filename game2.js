@@ -29,7 +29,7 @@ function startGame() {
                 drawScore();
             }, 800);
             return;
-        } if (score === 100) {
+        } if (score === 200) {
             alert("You win! Your score: " + score);
             window.location.reload();
             return;
@@ -109,7 +109,7 @@ function updateGame() {
 
     // Move obstacles to the left
     for (let i = 0; i < obstacles.length; i++) {
-        obstacles[i].x -= 8;
+        obstacles[i].x -= 10;
     }
 
     // Remove obstacles that are off screen
